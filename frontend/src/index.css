@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ink: #0F1B33;
+  --color-parchment: #F7F5F0;
+  --color-surface: #FFFFFF;
+  --color-brass: #B8924A;
+  --color-slate: #5B6472;
+  --color-hairline: #D9D5CC;
+  --color-verified: #1F7A4D;
+  --color-revoked: #C7821E;
+  --color-invalid: #B23B3B;
+  --color-neutral: #8A8478;
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: Inter, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+@layer base {
+  body {
+    @apply font-body text-ink bg-parchment;
+  }
+
+  h1 {
+    @apply font-display font-bold text-[2.25rem] leading-tight;
+  }
+
+  h2 {
+    @apply font-display font-semibold text-[1.5rem] leading-snug;
+  }
+}
+
+@layer utilities {
+  .animate-fadein {
+    animation: fadein 0.2s ease-out both;
+  }
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
