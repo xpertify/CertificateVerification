@@ -1,19 +1,14 @@
 const { Web3 } = require('web3');
-const path = require('path');
 const { RPC_URL, RELAYER_PRIVATE_KEY, CONTRACT_ADDRESS, CHAIN_ID } = require('../config/env');
 
-// ABI loaded from Hardhat compiled artifact — run `npx hardhat compile` first
-const artifact = require(path.join(
-  __dirname,
-  '../../../../artifacts/contracts/CertificateRegistry.sol/CertificateRegistry.json'
-));
+const ABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"certId","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"institutionId","type":"bytes32"},{"indexed":false,"internalType":"bytes32","name":"dataHash","type":"bytes32"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CertificateIssued","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"certId","type":"bytes32"}],"name":"CertificateRevoked","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"institutionId","type":"bytes32"}],"name":"InstitutionAuthorized","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"bytes32","name":"institutionId","type":"bytes32"}],"name":"InstitutionRevoked","type":"event"},{"inputs":[{"internalType":"bytes32","name":"institutionId","type":"bytes32"}],"name":"addInstitution","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"admin","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"name":"authorizedInstitutions","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"certId","type":"bytes32"}],"name":"getCertificate","outputs":[{"internalType":"bytes32","name":"dataHash","type":"bytes32"},{"internalType":"bytes32","name":"institutionId","type":"bytes32"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"bool","name":"revoked","type":"bool"},{"internalType":"bool","name":"exists","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"bytes32","name":"certId","type":"bytes32"},{"internalType":"bytes32","name":"institutionId","type":"bytes32"},{"internalType":"bytes32","name":"dataHash","type":"bytes32"}],"name":"issueCertificate","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"institutionId","type":"bytes32"}],"name":"removeInstitution","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bytes32","name":"certId","type":"bytes32"}],"name":"revokeCertificate","outputs":[],"stateMutability":"nonpayable","type":"function"}];
 
 const web3 = new Web3(RPC_URL);
 
 const account = web3.eth.accounts.privateKeyToAccount(RELAYER_PRIVATE_KEY);
 web3.eth.accounts.wallet.add(account);
 
-const contract = new web3.eth.Contract(artifact.abi, CONTRACT_ADDRESS);
+const contract = new web3.eth.Contract(ABI, CONTRACT_ADDRESS);
 
 function toBytes32(uuid) {
   return web3.utils.keccak256(uuid);
