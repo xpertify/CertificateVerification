@@ -1,1 +1,0 @@
-async function s(i,o,{body:a,token:e}={}){const n={"Content-Type":"application/json"};e&&(n.Authorization=`Bearer ${e}`);const t=await fetch(o,{method:i,headers:n,body:a?JSON.stringify(a):void 0}),r=await t.json();if(!t.ok)throw new Error(r.error||`Request failed (${t.status})`);return r}export{s as a};

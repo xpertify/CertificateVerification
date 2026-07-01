@@ -1,0 +1,1 @@
+const s="https://certificateverification-pvp4.onrender.com";async function c(o,n,{body:e,token:r}={}){const a={"Content-Type":"application/json"};r&&(a.Authorization=`Bearer ${r}`);const t=await fetch(s+n,{method:o,headers:a,body:e?JSON.stringify(e):void 0}),i=await t.json();if(!t.ok)throw new Error(i.error||`Request failed (${t.status})`);return i}export{c as a};
